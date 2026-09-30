@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+*.egg-info/
+.DS_Store
+Thumbs.db
+*.wav
+*.log
+web/assets/.cache/
