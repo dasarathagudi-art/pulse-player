@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pulse — media player</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app">
+    <div class="menubar">
+      <span class="brand">Pulse</span>
+      <div class="menu">
+        <button type="button">Media</button>
+        <div class="dropdown">
+          <button type="button" data-act="open">Open file(s)… <span class="hint">Ctrl+O</span></button>
+          <button type="button" data-act="url">Open network stream… <span class="hint">Ctrl+N</span></button>
+          <hr />
+          <button type="button" data-act="clear">Clear playlist</button>
+          <hr />
+          <button type="button" data-act="quit">Close player</button>
+        </div>
+      </div>
+      <div class="menu">
+        <button type="button">Playback</button>
+        <div class="dropdown">
+          <button type="button" data-act="toggle">Play / Pause <span class="hint">Space</span></button>
+          <button type="button" data-act="stop">Stop <span class="hint">S</span></button>
+          <button type="button" data-act="prev">Previous <span class="hint">P</span></button>
+          <button type="button" data-act="next">Next <span class="hint">N</span></button>
+          <hr />
+          <button type="button" data-act="loop">Cycle loop <span class="hint">L</span></button>
+          <button type="button" data-act="shuffle">Toggle shuffle</button>
+          <hr />
+          <button type="button" data-act="slower">Slower <span class="hint">[</span></button>
+          <button type="button" data-act="faster">Faster <span class="hint">]</span></button>
+          <button type="button" data-act="speed1">Normal speed <span class="hint">=</span></button>
+        </div>
+      </div>
+      <div class="menu">
+        <button type="button">Video</button>
+        <div class="dropdown">
+          <button type="button" data-act="fs">Fullscreen <span class="hint">F</span></button>
+          <button type="button" data-act="pip">Picture-in-picture</button>
+          <button type="button" data-act="snap">Snapshot</button>
+          <button type="button" data-act="info">Media info <span class="hint">I</span></button>
+        </div>
+      </div>
+      <div class="menu">
+        <button type="button">Help</button>
+        <div class="dropdown">
+          <button type="button" data-act="keys">Keyboard shortcuts</button>
+          <button type="button" data-act="about">About Pulse</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="workspace">
+      <div class="stage" id="stage">
+        <video id="video" playsinline></video>
+        <canvas id="viz"></canvas>
+        <div class="drop-hint">
+          <strong>Drop a video or audio file</strong>
+          <span>or use Media → Open file(s). Network URLs are supported.</span>
+        </div>
+        <div class="overlay-info" id="info"></div>
+      </div>
+      <aside class="playlist">
+        <header>
+          Playlist
+          <button type="button" id="hide-pl" title="Hide">✕</button>
+        </header>
+        <ul id="plist"></ul>
+      </aside>
+    </div>
+
+    <div class="controls">
+      <div class="seek-row">
+        <span class="time" id="tcur">00:00</span>
+        <input id="seek" type="range" min="0" max="1000" value="0" />
+        <span class="time" id="tdur">00:00</span>
+      </div>
+      <div class="btn-row">
+        <button class="ctrl" data-act="prev" title="Previous">⏮</button>
+        <button class="ctrl" data-act="stop" title="Stop">⏹</button>
+        <button class="ctrl primary" data-act="toggle" id="playbtn" title="Play/Pause">▶</button>
+        <button class="ctrl" data-act="next" title="Next">⏭</button>
+        <button class="ctrl" data-act="loop" id="loopbtn" title="Loop">🔁</button>
+        <button class="ctrl" data-act="shuffle" id="shufbtn" title="Shuffle">shuffle</button>
+        <span class="title-now" id="now">No media</span>
+        <span class="grow"></span>
+        <label class="title-now">Speed
+          <select id="speed">
+            <option>0.25</option><option>0.5</option><option>0.75</option>
+            <option selected>1</option><option>1.25</option><option>1.5</option>
+            <option>1.75</option><option>2</option>
+          </select>
+        </label>
+        <button class="ctrl" data-act="mute" id="mutebtn">🔊</button>
+        <input class="vol" id="vol" type="range" min="0" max="1" step="0.01" value="0.9" />
+        <button class="ctrl" data-act="fs">⛶</button>
+      </div>
+    </div>
+    <div class="status">
+      <span id="st-state">Stopped</span>
+      <span id="st-loop">Loop: off</span>
+      <span id="st-rate">1.00×</span>
+      <span id="st-extra">Ready</span>
+    </div>
+  </div>
+
+  <input class="hidden-input" id="filepick" type="file" accept="video/*,audio/*,.mkv,.avi,.mov,.mp4,.webm,.mp3,.wav,.ogg,.flac,.m4a" multiple />
+  <script src="player.js"></script>
+</body>
+</html>
